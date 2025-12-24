@@ -1,3 +1,3 @@
 veracode_static_scan:
   use_custom_workflow: veracode-build
-  artifact_file: veracode-artifact/MijnRelaxNow.zip
+  artifact_file: veracode-artifact
