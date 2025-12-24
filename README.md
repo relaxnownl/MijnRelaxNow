@@ -1,5 +1,6 @@
 # MijnRelaxNow
 
+
 **MijnRelaxNow** is the customer self-service portal for **Relax Now Verzekeringen Nederland B.V.** (fictional).  
 Customers use MijnRelaxNow to submit and track service requests, upload documents, and communicate with support teams.
 
