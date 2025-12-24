@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+
+# Environment files (will be mounted separately)
+.env
+.env.local
+
+# Docker files
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+.dockerignore
+
+# Development files
+.editorconfig
+.phpunit.result.cache
+phpunit.xml
+
+# Documentation
+README.md
+LICENSE
+
+# Dependencies (will be installed in container)
+vendor/
+
+# Runtime data (will be mounted as volumes)
+data/
+logs/
+uploads/
+tmp/
+
+# IDE
+.idea
+.vscode
+.DS_Store
+
+# Testing
+tests/
+.phpunit.cache
