@@ -1,0 +1,61 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  repository_dispatch:
+    types: [veracode-build]
+
+permissions:
+  contents: read
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    name: register
+    steps:
+      - name: Register build
+        id: register-build
+        uses: veracode/github-actions-integration-helper@v0.1.7
+        with:
+          action: registerBuild
+          token: ${{ github.event.client_payload.token }}
+          appname: ${{ github.event.client_payload.user_config.profile_name }}
+          source_repository: ${{ github.event.client_payload.repository.full_name }}
+          check_run_id: ${{ github.run_id }}
+          check_run_name: ${{ github.workflow }}
+          head_sha: ${{ github.event.client_payload.sha }}
+          event_type: ${{ github.event.client_payload.event_type }}
+          branch: ${{ github.event.client_payload.user_config.sandbox_scan.branch }}
+          issue_trigger_flow: ${{ github.event.client_payload.user_config.issue_trigger_flow }}
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Zip artifact
+        run: zip -r MijnRelaxNow.zip *
+
+      - name: Upload Veracode artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: veracode-artifact
+          path: MijnRelaxNow.zip
