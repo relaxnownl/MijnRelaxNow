@@ -12,6 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     name: register
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip artifact
+        run: zip -r MijnRelaxNow.zip *
+
+      - name: Upload Veracode artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: veracode-artifact
+          path: MijnRelaxNow.zip
+          
       - name: Register build
         id: register-build
         uses: veracode/github-actions-integration-helper@v0.1.7
@@ -26,17 +37,3 @@ jobs:
           event_type: ${{ github.event.client_payload.event_type }}
           branch: ${{ github.event.client_payload.user_config.sandbox_scan.branch }}
           issue_trigger_flow: ${{ github.event.client_payload.user_config.issue_trigger_flow }}
-
-  veracode-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Zip artifact
-        run: zip -r MijnRelaxNow.zip *
-
-      - name: Upload Veracode artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: veracode-artifact
-          path: MijnRelaxNow.zip
