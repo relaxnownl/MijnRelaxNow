@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Build package for Veracode Static Analysis
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
           branch: ${{ github.event.client_payload.user_config.sandbox_scan.branch }}
           issue_trigger_flow: ${{ github.event.client_payload.user_config.issue_trigger_flow }}
 
-  build:
+  veracode-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
