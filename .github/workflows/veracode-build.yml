@@ -1,10 +1,6 @@
 name: Build package for Veracode Static Analysis
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
   repository_dispatch:
     types: [veracode-build]
 
