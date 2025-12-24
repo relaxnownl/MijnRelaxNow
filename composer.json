@@ -1,5 +1,5 @@
 {
-    "name": "MijnRelaxNow",
+    "name": "relaxnownl/mijnrelaxnow",
     "description": "End user helpdesk form for submitting tickets to FreeScout",
     "type": "project",
     "require": {
