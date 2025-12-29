@@ -8,6 +8,7 @@ This repository is intentionally used as a **realistic test application** for:
 - CI/CD integration
 - Application security scanning (e.g. Veracode)
 
+
 ---
 
 ## Purpose
